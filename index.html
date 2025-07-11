@@ -33,7 +33,6 @@
 
     tbody {
       flex: 1 1 auto;
-      overflow-y: auto;
       display: block;
     }
 
@@ -239,8 +238,10 @@
       prices.sort((a, b) => b - a);
 
       const midIndex = prices.findIndex(p => p <= lastPrice);
-      const from = Math.max(0, midIndex - 9);
-      const to = from + 20;
+      const rowHeight = 28;
+      const maxVisibleRows = Math.floor(window.innerHeight / rowHeight) - 2;
+      const from = Math.max(0, midIndex - Math.floor(maxVisibleRows / 2));
+      const to = from + maxVisibleRows;
       const viewPrices = prices.slice(from, to);
 
       const maxQty = Math.max(
